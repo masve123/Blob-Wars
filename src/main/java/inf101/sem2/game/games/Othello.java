@@ -66,7 +66,7 @@ public class Othello extends Game<Location> {
 
 	@Override
 	public boolean validMove(Location loc) {
-		if (!super.canPlace(loc))
+		if (!board.canPlace(loc))
 			return false;
 		if (getFlipped(loc).isEmpty())
 			return false;

@@ -183,33 +183,6 @@ public class Grid<T> implements IGrid<T> {
 	}
 
 	@Override
-	public List<Location> getNeighbourhood(Location loc) {
-		return getNeighbourhood(loc, 1);
-	}
-
-	@Override
-	public List<Location> getNeighbourhood(Location loc, int dist) {
-		if (dist < 0 || loc == null)
-			throw new IllegalArgumentException();
-		else if (dist == 0)
-			return new ArrayList<>(); // empty!
-
-		List<Location> neighbors = new ArrayList<Location>();
-		for (int x = -dist; x <= dist; x++) {
-			for (int y = -dist; y <= dist; y++) {
-				int newRow = loc.row + x;
-				int newCol = loc.col + y;
-				Location neigbor = new Location(newRow, newCol);
-				if (isOnGrid(neigbor))
-					neighbors.add(neigbor);
-			}
-		}
-		neighbors.remove(loc);
-		Collections.sort(neighbors, new LocationComparator(loc));
-		return neighbors;
-	}
-	
-	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;

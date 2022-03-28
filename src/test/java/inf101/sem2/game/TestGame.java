@@ -40,13 +40,11 @@ public abstract class TestGame {
 	
 	@Test
 	void testDumbPlayerCanPlay() {
-		Player p1 = new DumbPlayer('X');
-		Player p2 = new DumbPlayer('O');
-		Game<?> game = new TicTacToe(new TerminalGraphics(), p1, p2);
+		Game<?> game = new TicTacToe(new TerminalGraphics(), player1, player2);
 		game.run();
 		assertTrue(game.gameOver());
 
-		game = new ConnectFour(new TerminalGraphics(), p1, p2);
+		game = new ConnectFour(new TerminalGraphics(), player1, player2);
 		game.run();
 		assertTrue(game.gameOver());
 	}

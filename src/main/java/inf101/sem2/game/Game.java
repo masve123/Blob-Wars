@@ -157,19 +157,6 @@ public abstract class Game<T> {
 	}
 
 	/**
-	 * The game has rules for where the players can place.
-	 * This method checks if the current player can place on a given location.
-	 * <p>
-	 * This is both used to verify that the move current player returns is valid
-	 *
-	 * @param loc - where to place
-	 * @return true if it is a valid move, false otherwise.
-	 */
-	public boolean canPlace(Location loc) {
-		return board.canPlace(loc);
-	}
-
-	/**
 	 * Check if currentPlayer is on the given location <code>loc</code>.
 	 * 
 	 * @param loc

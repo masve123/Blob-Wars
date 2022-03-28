@@ -68,7 +68,7 @@ public class TerminalInput {
 	 * @param name      - This String is used to print error message
 	 * @return
 	 */
-	private static <T> T read(Scanner sc, Function<String, T> converter, String name) {
+	public static <T> T read(Scanner sc, Function<String, T> converter, String name) {
 		T out = null;
 		while (out == null) {
 			try {

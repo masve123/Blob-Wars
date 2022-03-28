@@ -47,7 +47,7 @@ class OthelloTest extends TestGame{
 	}
 	
 	@Test
-	void canPlace() {
+	void validMoveTest() {
 		assertFalse(game.validMove(new Location(3, 2)));
 		assertTrue(game.validMove(new Location(3, 5)));
 		assertTrue(game.validMove(new Location(5, 3)));
@@ -58,7 +58,7 @@ class OthelloTest extends TestGame{
 	@Test
 	void testMakeMove() {
 		Location move = new Location(5,3);
-		assertTrue(game.canPlace(move));
+		assertTrue(game.validMove(move));
 		game.makeMove(move);
 		game.nextPlayer();
 		assertEquals(player1, game.getGameBoard().get(move));

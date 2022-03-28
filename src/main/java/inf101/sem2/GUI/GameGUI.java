@@ -17,7 +17,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import inf101.grid.Location;
-import inf101.sem2.game.Game;
 import inf101.sem2.game.GameBoard;
 import inf101.sem2.player.GameEndedException;
 import inf101.sem2.player.Player;

@@ -5,6 +5,7 @@ import java.util.List;
 
 import inf101.grid.GridDirection;
 import inf101.grid.Location;
+import inf101.sem2.GUI.GameGUI;
 import inf101.sem2.GUI.Graphics;
 import inf101.sem2.game.Game;
 import inf101.sem2.game.GameBoard;
@@ -65,17 +66,18 @@ public class ConnectFour extends Game<Integer> {
 		if (!validMove(column))
 			throw new IllegalArgumentException("Cannot place piece here");
 
-		// simple implementation
-		// board.set(drop(column)), getCurrentPlayer());
+		if (!(graphics instanceof GameGUI)) {
+			board.set(drop(column), getCurrentPlayer());
+			return;
+		}
 
-		//TODO: move this to GUI
 		// Place piece on clicked location with animation
 		// Drop piece and make move from all locations it dropped through
 		Location currentLocation = new Location(0, column);
 		board.set(new Location(0, column), getCurrentPlayer());
 		displayBoard();
 
-		while (canPlace(below(currentLocation))) {
+		while (board.canPlace(below(currentLocation))) {
 			sleep();
 			board.movePiece(currentLocation, below(currentLocation));
 			currentLocation = below(currentLocation);
@@ -140,7 +142,7 @@ public class ConnectFour extends Game<Integer> {
 
 	@Override
 	public boolean validMove(Integer col) {
-		return col !=null && board.canPlace(new Location(0, col));
+		return col != null && board.canPlace(new Location(0, col));
 	}
 
 }

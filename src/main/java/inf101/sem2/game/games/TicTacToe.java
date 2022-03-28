@@ -81,7 +81,7 @@ public class TicTacToe extends Game<Location> {
 		if (move == null)
 			return false;
 
-		return canPlace(move);
+		return board.canPlace(move);
 	}
 
 	@Override

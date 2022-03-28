@@ -174,22 +174,31 @@ public class GameBoard {
 		grid.clear();
 	}
 
+	/**
+	 * Set the contents of all cells to <code>element</code>
+	 * <p>
+	 * For example:
+	 *
+	 * <pre>
+	 * // clear the grid
+	 * grid.setAll(null);
+	 * </pre>
+	 *
+	 * @param initialiser
+	 */
 	public void fill(Player element) {
 		grid.fill(element);
 	}
 
-	public List<Location> getNeighborhood(Location loc) {
-		return grid.getNeighbourhood(loc);
-	}
-
-	public List<Location> getNeighborhood(Location loc, int dist) {
-		return grid.getNeighbourhood(loc, dist);
-	}
-
-	public int countPieces(Player p) {
+	/**
+	 * Count the number of piece of player <code>player</code>
+	 * @param player
+	 * @return number of pieces of player on the board
+	 */
+	public int countPieces(Player player) {
 		int total = 0;
 		for (Location loc : locations()) {
-			if (p == get(loc)) {
+			if (player == get(loc)) {
 				total++;
 			}
 		}
@@ -216,6 +225,5 @@ public class GameBoard {
 		GameBoard other = (GameBoard) obj;
 		return Objects.equals(grid, other.grid);
 	}
-	
 	
 }
