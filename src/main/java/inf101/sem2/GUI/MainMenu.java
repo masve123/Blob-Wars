@@ -133,7 +133,7 @@ public class MainMenu implements ActionListener {
 		} else {
 			// make AI
 			// TODO: prompt for level of intelligence in AI player
-			players.add(new AlphaBetaPlayer('O', 5));
+			players.add(new AlphaBetaPlayer('O', 9));
 			// players.add(new DumbPlayer('O'));
 		}
 		return players;

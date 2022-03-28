@@ -22,7 +22,7 @@ public abstract class Game<T> {
 	/**
 	 * Number of miliseconds between each move.
 	 */
-	public static final int SINGLE_MOVE_TIME = 400;
+	public static final int SINGLE_MOVE_TIME = 200;
 	private int playersPassed = 0;
 
 	/** Keeps track of where players have placed their pieces */
