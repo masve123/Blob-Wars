@@ -20,7 +20,7 @@ Denne oppgaven teller på din endelige vurdering i faget. Maks poeng er 15.
 
 
 ## Oversikt
-De tre spillene "Tic Tac Toe", "Connect Four" og "Othello" er allerede ferdigimplementert.
+Semesteroppgaven går ut på å utvide en eksisterende kodebase med brettspillet BlobWars. De tre spillene "Tic Tac Toe", "Connect Four" og "Othello" er allerede ferdigimplementert.
 Denne semesteroppgaven har 2 hoveddeler:
 - Teori, sett deg inn i den eksisterende koden
 - Utvid funksjonaliteten ved å legge til et fjerde spill som heter [BlobWars](https://www.twoplayergames.org/game/blob-wars).
