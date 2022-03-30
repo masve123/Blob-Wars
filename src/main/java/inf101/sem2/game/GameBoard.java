@@ -13,8 +13,6 @@ public class GameBoard {
 
 	private Grid<Player> grid;
 
-	int j;
-
 	public GameBoard(int rows, int cols) {
 		grid = new Grid<>(rows, cols);
 	}
