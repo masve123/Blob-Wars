@@ -38,7 +38,7 @@ public class MainMenu implements ActionListener {
 	private final JButton playConnectFourButton; // Button to start new 4 in row game
 	private final JButton playTicTacToeButton; // Button to start new TicTacToe game
 	private final JButton playOthelloButton; // Button to start new Othello game
-	//private final JButton playBlobWarsButton; // Button to start new BlobWars game
+	private final JButton playBlobWarsButton; // Button to start new BlobWars game
 	private final JFrame frame;
 	public Game<?> game;
 	public GameGUI gui;
@@ -58,8 +58,8 @@ public class MainMenu implements ActionListener {
 		playTicTacToeButton = addButton(buttons, "Tic-Tac-Toe");
 		playConnectFourButton = addButton(buttons, "Connect Four");
 		playOthelloButton = addButton(buttons, "Othello");
-		// playBlobWarsButton = addButton(buttons, "Blob Wars");
-		int numButtons = 4; // 3
+		playBlobWarsButton = addButton(buttons, "Blob Wars");
+		int numButtons = 4;
 
 		// add buttons to the window
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -110,9 +110,9 @@ public class MainMenu implements ActionListener {
 		if (e.getSource() == playOthelloButton) {
 			game = new Othello(graphics, players);
 		}
-		// if (e.getSource() == playBlobWarsButton) {
-		// 	game = new BlobWars(graphics, players);
-		// }
+		if (e.getSource() == playBlobWarsButton) {
+			game = new BlobWars(graphics, players);
+		}
 		if (game == null) {
 			System.err.println("Button not recognized, no game created.");
 		} else {
@@ -137,12 +137,43 @@ public class MainMenu implements ActionListener {
 		if (promptMultiplayer()) {
 			players.add(new GuiPlayer('O', input));
 		} else {
-			// make AI
-			// TODO: prompt for level of intelligence in AI player
-			players.add(new AlphaBetaPlayer('O', 9));
-			// players.add(new DumbPlayer('O'));
+			String choiceAI = promptAI();
+
+			if (choiceAI.equals("AlphaBetaPlayer")) {
+				players.add(new AlphaBetaPlayer('O', 9));
+			} else if (choiceAI.equals("DumbPlayer")) {
+				players.add(new DumbPlayer('0'));
+
+			} else {
+				players.add(new GuiPlayer('O', input));
+			}
+
 		}
 		return players;
+	}
+
+	/**
+	 * Helper method for choosing level of AI
+	 * if the "Single player (against AI)" button is pressed
+	 * 
+	 * @return true if the user wants to play against AI, false otherwise
+	 */
+
+	private static String promptAI() {
+		String[] levelsAI = { "DumbPlayer", "RandomPlayer", "AlphaBetaPlayer" };
+		String s = (String) JOptionPane.showInputDialog(
+				null,
+				"Choose level of AI:",
+				"AI",
+				JOptionPane.PLAIN_MESSAGE,
+				null,
+				levelsAI,
+				null);
+
+		// User choice:
+
+		return s;
+
 	}
 
 	/**

@@ -33,7 +33,7 @@ public class TerminalMenu {
 					game = new Othello(new TerminalGraphics(), players.get(0), players.get(1));
 					break;
 				case 4:
-				game = new BlobWars(new TerminalGraphics(), players.get(0), players.get(1));
+					game = new BlobWars(new TerminalGraphics(), players.get(0), players.get(1));
 				default:
 					System.err.println("Unexpected value: " + choice);
 					continue;

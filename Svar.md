@@ -79,6 +79,7 @@ Her er bruken av abstraksjon viktig. Ved å dele opp klasser i grensesnitt og ab
 ## Oppgave 2
 
 - Plan for å implementere Blob Wars:
+Blob Wars likner en del på Othello, både når det gjelder regler men også UI. Ideen er at jeg kan bruke en abstrakt klasse for å abstrahere vekk de metodene som er like i Othello og Blob Wars. Jeg tenker også å lage en ny klasse som arver fra Location, men som istedenfor å holde på en location tar inn to. --> ----Se "Location" - klassen----
 
 - Tegn klassediagram --- gjøres i det allerede eksisterende klassediagrammet
 
