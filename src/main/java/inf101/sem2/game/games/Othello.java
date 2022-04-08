@@ -74,16 +74,6 @@ public class Othello extends Game<Location> {
 			return true;
 	}
 
-	public boolean isOpponent(Location loc) {
-		if (!board.isOnBoard(loc))
-			return false;
-		if (board.get(loc) == getCurrentPlayer())
-			return false;
-		if (board.get(loc) == null)
-			return false;
-		return true;
-	}
-
 	@Override
 	public void makeMove(Location loc) {
 		if (!validMove(loc))

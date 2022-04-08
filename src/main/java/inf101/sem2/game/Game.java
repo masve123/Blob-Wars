@@ -262,4 +262,22 @@ public abstract class Game<T> {
 	public void sleep() {
 		graphics.sleep(SINGLE_MOVE_TIME);
 	}
+
+
+		// edits to the original code 
+
+	 /**
+     * This method checks whether the opponent is on a given location.
+     * @param loc
+     * @return true if the opponent is on the location, false otherwise.
+     */
+    public boolean isOpponent(Location loc) {
+		if (!board.isOnBoard(loc))
+			return false;
+		if (board.get(loc) == getCurrentPlayer())
+			return false;
+		if (board.get(loc) == null)
+			return false;
+		return true;
+	}
 }

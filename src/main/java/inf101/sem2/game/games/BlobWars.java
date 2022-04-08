@@ -59,10 +59,11 @@ public class BlobWars extends Game<BlobWarsLocations> {
 
     @Override
     public void makeMove(BlobWarsLocations move) {
-        // TODO Auto-generated method stub
+        if (!validMove(move))
+            throw new IllegalArgumentException("Invalid move");
+        // something
 
     }
-
     @Override
     public boolean validMove(BlobWarsLocations move) {
         if (!board.canPlace(move.getToLocation()))
@@ -74,19 +75,20 @@ public class BlobWars extends Game<BlobWarsLocations> {
     }
 
     @Override
-    public boolean isWinner(Player player) {
-        // TODO Auto-generated method stub
-        return false;
-    }
+	public boolean isWinner(Player player) {
+		if (!gameOver())
+			return false;
+		int count = getGameBoard().countPieces(player);
+		for (Player p : players) {
+			if (p.equals(player))
+				continue;
+			if (board.countPieces(p) >= count)
+				return false;
+		}
+		return true;
+	}
+    
 
-    // 1. Finn alle locations til brikker
-    // 2. Legg alle disse locations inn i liste "from"
-    // 3. Iterer gjennom liste "from"
-    // 4. Fra hver location i liste from, finn nearest neighbours
-    // 5. Hvis valid move på nearest neighbours: Legg ny blobwarsLocation til i
-    // possible Moves listen
-    // hvor from er from, og to er den gjeldende naboen.
-    // 6. Returner liste
     @Override
     public List<BlobWarsLocations> getPossibleMoves() {
         ArrayList<Location> fromLoc = new ArrayList<>();
@@ -127,7 +129,13 @@ public class BlobWars extends Game<BlobWarsLocations> {
 
     @Override
     public boolean gameOver() {
-        return getPossibleMoves().isEmpty();
+        if (getPossibleMoves().isEmpty()) {
+            return true;
+        }
+        if ((getGameBoard().countPieces(getCurrentPlayer()) < 1))  {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -141,4 +149,9 @@ public class BlobWars extends Game<BlobWarsLocations> {
         initializeBoard();
     }
 
+    // things to do:
+    // the flipping of pieces -> look at getFlipped() in othello.
+    // Complete the makeMove() method.
+    // Do the score() method. ??? similar to othello ???
+    // add lines to Input class (two basically)
 }
