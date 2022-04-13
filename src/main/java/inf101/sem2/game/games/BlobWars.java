@@ -59,11 +59,47 @@ public class BlobWars extends Game<BlobWarsLocations> {
 
     @Override
     public void makeMove(BlobWarsLocations move) {
-        if (!validMove(move))
-            throw new IllegalArgumentException("Invalid move");
-        // something
+        Location from = move.getToLocation();
+        Location to = move.getFromLocation();
+        if (!getPossibleLocations(from).contains(to)) {
+            throw new IllegalArgumentException("Illegal move");
+        }
 
+        if (board.getNeighbourHood(from).contains(to)) {
+            board.set(to, getCurrentPlayer());
+            displayBoard();
+        }
+        else {
+            board.movePiece(from, to);
+            displayBoard();
+        }
+        swapPieces(to);
+        displayBoard();
     }
+
+    public List<Location> getPossibleLocations(Location loc) {
+        return board.getNeighbourHood(loc, 2);
+    }
+
+    /**
+     * This method is used to swap the pieces of the players.
+     * <p>
+     * It is similar, but not equal to the getFlipped() method
+     * in the Othello class.
+     * @param loc
+     */
+
+    public void swapPieces(Location loc) {
+        for (Location neighbour : board.getNeighbourHood(loc)) {
+            Player neighbourPiece = board.get(neighbour);
+            if (neighbourPiece == null)
+                continue;
+            if (!neighbourPiece.equals(getCurrentPlayer())) {
+                board.swap(neighbour, getCurrentPlayer());
+            }
+        }
+    }
+
     @Override
     public boolean validMove(BlobWarsLocations move) {
         if (!board.canPlace(move.getToLocation()))
@@ -75,19 +111,18 @@ public class BlobWars extends Game<BlobWarsLocations> {
     }
 
     @Override
-	public boolean isWinner(Player player) {
-		if (!gameOver())
-			return false;
-		int count = getGameBoard().countPieces(player);
-		for (Player p : players) {
-			if (p.equals(player))
-				continue;
-			if (board.countPieces(p) >= count)
-				return false;
-		}
-		return true;
-	}
-    
+    public boolean isWinner(Player player) {
+        if (!gameOver())
+            return false;
+        int count = getGameBoard().countPieces(player);
+        for (Player p : players) {
+            if (p.equals(player))
+                continue;
+            if (board.countPieces(p) >= count)
+                return false;
+        }
+        return true;
+    }
 
     @Override
     public List<BlobWarsLocations> getPossibleMoves() {
@@ -132,7 +167,7 @@ public class BlobWars extends Game<BlobWarsLocations> {
         if (getPossibleMoves().isEmpty()) {
             return true;
         }
-        if ((getGameBoard().countPieces(getCurrentPlayer()) < 1))  {
+        if ((getGameBoard().countPieces(getCurrentPlayer()) < 1)) {
             return true;
         }
         return false;
@@ -153,5 +188,4 @@ public class BlobWars extends Game<BlobWarsLocations> {
     // the flipping of pieces -> look at getFlipped() in othello.
     // Complete the makeMove() method.
     // Do the score() method. ??? similar to othello ???
-    // add lines to Input class (two basically)
 }

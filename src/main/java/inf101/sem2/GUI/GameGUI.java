@@ -16,6 +16,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import inf101.grid.BlobWarsLocations;
 import inf101.grid.Location;
 import inf101.sem2.game.GameBoard;
 import inf101.sem2.player.GameEndedException;
@@ -193,6 +194,14 @@ public class GameGUI extends Input implements ActionListener, Graphics {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public BlobWarsLocations getMove() {
+		List<Location> selectedPanels = getSelectedPanels(2);
+		BlobWarsLocations move = new BlobWarsLocations(selectedPanels.get(0), selectedPanels.get(1));
+		return move;
+		
 	}
 
 }

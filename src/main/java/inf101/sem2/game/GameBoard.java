@@ -226,4 +226,14 @@ public class GameBoard {
 		return Objects.equals(grid, other.grid);
 	}
 	
+
+
+	public List<Location> getNeighbourHood(Location loc) {
+		return grid.getNeighbourHood(loc);
+	}
+
+	public List<Location> getNeighbourHood(Location loc, int dis) {
+		return grid.getNeighbourHood(loc, dis);
+	}
 }
+

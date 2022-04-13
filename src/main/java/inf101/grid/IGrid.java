@@ -115,4 +115,19 @@ public interface IGrid<T> extends Iterable<T> {
 
 	boolean canGo(Location from, GridDirection dir);
 	
+	/**
+	 * Get the neighbours of a cell
+	 * with the distance 1.
+	 * @param loc
+	 * @return A list of locations.
+	 */
+	List<Location> getNeighbourHood(Location loc);
+
+	/**
+	 * Get the neighbours of a cell
+	 * 
+	 * @param loc
+	 * @return A list of locations.
+	 */
+	List<Location> getNeighbourHood(Location loc, int dis);
 }

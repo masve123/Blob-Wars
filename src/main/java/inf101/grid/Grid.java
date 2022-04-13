@@ -198,16 +198,46 @@ public class Grid<T> implements IGrid<T> {
 			return true;
 		if (obj == null || getClass() != obj.getClass())
 			return false;
-		
+
 		Grid<?> other = (Grid<?>) obj;
 		if (numColumns() != other.numColumns())
 			return false;
 		if (numRows() != other.numRows())
 			return false;
-		for(Location loc : locations()) {
-			if(!Objects.equals(this.get(loc),other.get(loc)))
+		for (Location loc : locations()) {
+			if (!Objects.equals(this.get(loc), other.get(loc)))
 				return false;
 		}
 		return true;
+	}
+
+	@Override
+	public List<Location> getNeighbourHood(Location loc) {
+		return getNeighbourHood(loc, 1);
+	}
+
+	@Override
+	public List<Location> getNeighbourHood(Location loc, int dis) {
+		if (dis < 0 || loc == null) {
+			throw new IllegalArgumentException("distance must be positive and location must not be null");
+		} else if (dis == 0) {
+			return new ArrayList<Location>();
+		}
+		List<Location> myList = new ArrayList<Location>();
+
+		for (int row = -(dis); row <= dis; row++) {
+			for (int col = -(dis); col <= dis; col++) {
+				int newrow = loc.row + row;
+				int newcol = loc.col + col;
+				Location neighbour = new Location(newrow, newcol);
+				if (isOnGrid(neighbour)) {
+					myList.add(neighbour);
+				}
+			}
+		}
+		myList.remove(loc);
+		Collections.sort(myList, new LocationComparator(loc));
+
+		return myList;
 	}
 }
