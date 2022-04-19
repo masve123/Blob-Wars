@@ -26,6 +26,7 @@ import inf101.sem2.player.Player;
 import inf101.sem2.player.RestartException;
 import inf101.sem2.player.ai.AlphaBetaPlayer;
 import inf101.sem2.player.ai.DumbPlayer;
+import inf101.sem2.player.ai.RandomPlayer;
 import inf101.sem2.player.human.GuiPlayer;
 
 /**
@@ -140,12 +141,12 @@ public class MainMenu implements ActionListener {
 			String choiceAI = promptAI();
 
 			if (choiceAI.equals("AlphaBetaPlayer")) {
-				players.add(new AlphaBetaPlayer('O', 9));
+				players.add(new AlphaBetaPlayer('O', 2));
 			} else if (choiceAI.equals("DumbPlayer")) {
 				players.add(new DumbPlayer('0'));
 
 			} else {
-				players.add(new GuiPlayer('O', input));
+				players.add(new RandomPlayer('O', "RandomPlayer"));
 			}
 
 		}

@@ -59,15 +59,16 @@ public class BlobWars extends Game<BlobWarsLocations> {
 
     @Override
     public void makeMove(BlobWarsLocations move) {
-        Location from = move.getToLocation();
-        Location to = move.getFromLocation();
+        Location to = move.getToLocation();
+        Location from = move.getFromLocation();
         if (!getPossibleLocations(from).contains(to)) {
             throw new IllegalArgumentException("Illegal move");
         }
-
+        
         if (board.getNeighbourHood(from).contains(to)) {
             board.set(to, getCurrentPlayer());
             displayBoard();
+            
         }
         else {
             board.movePiece(from, to);
@@ -89,7 +90,7 @@ public class BlobWars extends Game<BlobWarsLocations> {
      * @param loc
      */
 
-    public void swapPieces(Location loc) {
+    private void swapPieces(Location loc) {
         for (Location neighbour : board.getNeighbourHood(loc)) {
             Player neighbourPiece = board.get(neighbour);
             if (neighbourPiece == null)
@@ -102,9 +103,14 @@ public class BlobWars extends Game<BlobWarsLocations> {
 
     @Override
     public boolean validMove(BlobWarsLocations move) {
+        if (Math.max(Math.abs(move.getFromLocation().row - move.getToLocation().row),Math.abs(move.getFromLocation().col - move.getToLocation().col)) > 2) {
+            return false;
+        }
+        if (!board.isOnBoard(move.getToLocation()))
+            return false;
         if (!board.canPlace(move.getToLocation()))
             return false;
-        if (move.getFromLocation() != getCurrentPlayer()) {
+        if (board.get(move.getFromLocation()) != getCurrentPlayer()) {
             return false;
         }
         return true;
@@ -130,7 +136,7 @@ public class BlobWars extends Game<BlobWarsLocations> {
         ArrayList<BlobWarsLocations> possiblemoves = new ArrayList<>();
 
         for (Location from : board.locations()) {
-            if (board.get(from) != null) {
+            if (board.get(from) == getCurrentPlayer()) {
                 fromLoc.add(from);
 
             }
@@ -143,8 +149,11 @@ public class BlobWars extends Game<BlobWarsLocations> {
                     possiblemoves.add(new BlobWarsLocations(from, neighbour));
 
                     for (GridDirection nextdirection : GridDirection.EIGHT_DIRECTIONS) {
-                        Location nextNeighbour = from.getNeighbor(nextdirection);
+                        Location nextNeighbour = neighbour.getNeighbor(nextdirection);
                         BlobWarsLocations nextLoc = new BlobWarsLocations(neighbour, nextNeighbour);
+                        if (nextNeighbour.equals(from)) {
+                            continue;
+                        }
                         if (board.canPlace(nextNeighbour) && !possiblemoves.contains(nextLoc)) {
                             possiblemoves.add(nextLoc);
                         }
@@ -184,8 +193,18 @@ public class BlobWars extends Game<BlobWarsLocations> {
         initializeBoard();
     }
 
-    // things to do:
-    // the flipping of pieces -> look at getFlipped() in othello.
-    // Complete the makeMove() method.
-    // Do the score() method. ??? similar to othello ???
+    @Override
+	public int score(Player player) {
+		int otherPiecesSum = 0;
+		for (Player p : players) {
+			if (player.equals(p))
+				continue;
+			otherPiecesSum += board.countPieces(p);
+		}
+		int nPlayerPieces = board.countPieces(player);
+		return nPlayerPieces - otherPiecesSum;
+	}
+
+    
+    
 }

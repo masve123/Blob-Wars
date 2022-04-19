@@ -124,7 +124,7 @@ public interface IGrid<T> extends Iterable<T> {
 	List<Location> getNeighbourHood(Location loc);
 
 	/**
-	 * Get the neighbours of a cell
+	 * Get the neighbours of a cell.
 	 * 
 	 * @param loc
 	 * @return A list of locations.
