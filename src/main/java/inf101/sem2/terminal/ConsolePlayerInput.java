@@ -4,9 +4,9 @@ import static inf101.sem2.terminal.TerminalInput.readInt;
 
 import java.util.Scanner;
 
+import inf101.grid.BlobWarsLocations;
 import inf101.grid.Location;
 import inf101.sem2.GUI.Input;
-import inf101.sem2.game.Game;
 import inf101.sem2.player.human.ConsolePlayer;
 
 public class ConsolePlayerInput extends Input {
@@ -47,13 +47,15 @@ public class ConsolePlayerInput extends Input {
 		return new Location(row, col);
 	}
 
-	@Override
-	public <T> T getMove(Game<T> game) {
-		T move = super.getMove(game);
-		while(!game.validMove(move)) {
-			System.out.println("Not a valid move. Try again");
-			move = super.getMove(game);
-		}
-		return move;
+	@Override 
+	public BlobWarsLocations getMove() {
+		System.out.println("Player " + player + " type [Row] [Col] from first location, then type [Row] [Col] to second location to make a move.");
+		int fRow = readInt(sc);
+		int fCol = readInt(sc);
+		int sRow = readInt(sc);
+		int sCol = readInt(sc);
+		Location loc1 = new Location(fRow, fCol);
+		Location loc2 = new Location(sRow, sCol);
+		return new BlobWarsLocations(loc1, loc2);
 	}
 }

@@ -9,7 +9,9 @@ import inf101.sem2.game.games.ConnectFour;
 import inf101.sem2.game.games.Othello;
 import inf101.sem2.game.games.TicTacToe;
 import inf101.sem2.player.Player;
+import inf101.sem2.player.ai.AlphaBetaPlayer;
 import inf101.sem2.player.ai.DumbPlayer;
+import inf101.sem2.player.ai.RandomPlayer;
 import inf101.sem2.player.human.ConsolePlayer;
 
 public class TerminalMenu {
@@ -34,6 +36,7 @@ public class TerminalMenu {
 					break;
 				case 4:
 					game = new BlobWars(new TerminalGraphics(), players.get(0), players.get(1));
+					break;
 				default:
 					System.err.println("Unexpected value: " + choice);
 					continue;
@@ -54,8 +57,9 @@ public class TerminalMenu {
 				players.add(new ConsolePlayer('O'));
 				break;
 			case 2:
+				players.add(promptTerminalAI());
 				// players.add(new MiniMaxPlayer('O', 5));
-				players.add(new DumbPlayer('O'));
+				//players.add(new DumbPlayer('O'));
 				break;
 			default:
 				throw new IllegalArgumentException("Unexpected value: " + multiplayerChoice);
@@ -67,5 +71,22 @@ public class TerminalMenu {
 		System.out.println("Play again? y/n");
 		String choice = TerminalInput.readString(sc);
 		return !choice.startsWith("y");
+	}
+
+	private static Player promptTerminalAI() {
+		System.out.println("Press 1 for DumbPlayer, 2 for RandomPlayer or 3 for AlphaBetaPlayer");
+		
+		int choiceAI = TerminalInput.readInt(new Scanner(System.in));
+		switch (choiceAI) {
+			case 1:
+				return new DumbPlayer('O');
+			case 2:
+				return new RandomPlayer('O', "RandomPlayer");
+			case 3:
+				return new AlphaBetaPlayer('O', 2);
+			default:
+				throw new IllegalArgumentException("Unexpected value: " + choiceAI);
+
+		}
 	}
 }

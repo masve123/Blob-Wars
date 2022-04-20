@@ -18,6 +18,7 @@ public class MainTerminal {
 		boolean done = false;
 		while (!done) {
 			Game<?> game = TerminalMenu.selectGame(players);
+			// implement players/AI here
 			game.run();
 			done = TerminalMenu.isDone();
 		}

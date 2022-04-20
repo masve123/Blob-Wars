@@ -141,7 +141,7 @@ public class MainMenu implements ActionListener {
 			String choiceAI = promptAI();
 
 			if (choiceAI.equals("AlphaBetaPlayer")) {
-				players.add(new AlphaBetaPlayer('O', 2));
+				players.add(new AlphaBetaPlayer('O', 1));
 			} else if (choiceAI.equals("DumbPlayer")) {
 				players.add(new DumbPlayer('0'));
 
@@ -170,8 +170,6 @@ public class MainMenu implements ActionListener {
 				null,
 				levelsAI,
 				null);
-
-		// User choice:
 
 		return s;
 
