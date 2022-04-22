@@ -9,7 +9,6 @@ import inf101.grid.Location;
 import inf101.sem2.GUI.DummyGraphics;
 import inf101.sem2.game.Game;
 import inf101.sem2.game.TestGame;
-import inf101.sem2.player.Player;
 
 class ConnectFourTest extends TestGame {
 

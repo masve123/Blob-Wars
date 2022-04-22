@@ -1,10 +1,7 @@
 package inf101.sem2.player.human;
 
-import static inf101.sem2.terminal.TerminalInput.readInt;
 import static inf101.sem2.terminal.TerminalInput.readName;
-
 import java.util.Scanner;
-
 import inf101.sem2.terminal.ConsolePlayerInput;
 
 /**

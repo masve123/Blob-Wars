@@ -141,7 +141,7 @@ public class MainMenu implements ActionListener {
 			String choiceAI = promptAI();
 
 			if (choiceAI.equals("AlphaBetaPlayer")) {
-				players.add(new AlphaBetaPlayer('O', 1));
+				players.add(new AlphaBetaPlayer('O', 2));
 			} else if (choiceAI.equals("DumbPlayer")) {
 				players.add(new DumbPlayer('0'));
 

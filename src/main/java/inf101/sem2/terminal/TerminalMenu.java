@@ -75,7 +75,7 @@ public class TerminalMenu {
 
 	private static Player promptTerminalAI() {
 		System.out.println("Press 1 for DumbPlayer, 2 for RandomPlayer or 3 for AlphaBetaPlayer");
-		
+
 		int choiceAI = TerminalInput.readInt(new Scanner(System.in));
 		switch (choiceAI) {
 			case 1:

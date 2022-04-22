@@ -36,8 +36,7 @@ Samme gjelder også "GameBoard" klassen der man også bruker komposisjon med pri
 
 - Ved gjenbruk av kode er det flere muligheter for ulike spill i dette prosjektet. Mye av grunnverket er lagt allerede, blant annet i grid-pakken som allerede har laget et velfungerende grid. Det samme gjelder også i player-pakken, som har laget alle de ulike spillerne.
 
-
------
+Det vil være enkelt å implementere spill der det er to spillere (multiplayer eller AI) der man starter med x antall brikker. Med implementasjonen av BlobWars sammen med Othello vil det i tillegg være enklere å implementere spill der brikkene kan endres avhengig av en av spillerne sitt "move". Hvis man tar hensyn til AI vil det eksempelvis være enkelt å implementere spill der det er om å gjøre å få mest brikker på brettet, slik som i de andre spillene i programmet. Å implementere sjakk derimot vil eksempelvis være verre ettersom brikkene har forskjellig betydning og AI'en må ta andre hensyn.
 
 * Hvor er SOLID prinsippene brukt/ikke brukt.
 Merk at SOLID prinsippene ikke er pensum før i INF112 så vi forventer ikke så mye av dere her,
@@ -53,15 +52,13 @@ Det finnes flere eksempler på dette i koden som er implementert. Et eksempel er
 
 - Open-Closed Principle: En klasse skal være åpen for utvidelser, men ikke modifikasjoner.
 
-Det finnes en operator i Java, "Instanceof" som kan brukes for å teste om et objekt er en instans av en spesiell type. Den er kjent som "the type comparison-operator" fordi den har ansvar for å sammenligne to objekter og returnere true hvis de er av samme type. Men tradisjonelt sett ønsker man å unngå dette, og heller bruke arv slik at man unngår å endre på selve superklassen. Istedenfor kan man legge til endringer i en subklasse ved bruk av @override metoder. 
+Det finnes en operator i Java, "Instanceof" som kan brukes for å teste om et objekt er en instans av en spesiell type. Den er kjent som "the type comparison-operator" fordi den har ansvar for å sammenligne to objekter og returnere true hvis de er av samme type. Men tradisjonelt sett ønsker man å unngå dette, og heller bruke arv slik at man unngår å endre på selve superklassen. Istedenfor kan man legge til endringer i en subklasse ved bruk av @override metoder. Jeg har notert meg at det brukes "instanceof" i "Input" - klassen. 
 
-Jeg har notert meg at det brukes "instanceof" i "Input" - klassen. 
-
+Ved å abstrahere, eksempelvis ved bruk av interface og abstrakte klasser, kan man utvide klasser ved å bruke arv. I dette programmet har man eksempelvis flere abstrakte klasser som holder på de generelle metodene som passer flere steder, også kan man lage nye klasser som arver fra disse. Dette gjør at man kan lage utvidelser av programmet på et mer spesifikt nivå enn ellers. 
 
 - Liskov Substitution Principle: En subklasse skal kunne erstatte en superklasse uten at systemet mister funksjonalitet.
 
-
-
+Det var ikke så enkelt å finne gode eksempler på dette prinsippet i programmet. En ting jeg derimot fant var eksemplevis at prinsippet er oppfylt for enkelte metoder, men ikke hele klasser. Hverken BlobWars, Othello, TicTacToe eller ConnectFour kan erstatte Game. Men enkelte metoder som er overskrevet kan brukes også i Game. Score-metoden er et eksempel på noe som oppfyller deler av dette prinsippet, ettersom den mer spesifikke Score-metoden i Othello og BlobWars kunne substituert funksjonaliteten i den generelle Score-metoden i Game-klassen. Likevel kan man trygt konkludere med at dette prinsippet ikke har vært hovedprioriteringen i designet.
 
 
 - Interface Segregation Principle: Ingen utviklere skal bli tvunget til å ta i bruk metoder som ikke trengs.
@@ -79,14 +76,20 @@ Her er bruken av abstraksjon viktig. Ved å dele opp klasser i grensesnitt og ab
 ## Oppgave 2
 
 - Plan for å implementere Blob Wars:
-Blob Wars likner en del på Othello, både når det gjelder regler men også UI. Ideen er at jeg kan bruke en abstrakt klasse for å abstrahere vekk de metodene som er like i Othello og Blob Wars. Jeg tenker også å lage en ny klasse som arver fra Location, men som istedenfor å holde på en location tar inn to. --> ----Se "Location" - klassen----
+
+Blob Wars likner en del på Othello, både når det gjelder regler men også UI. Da jeg begynte å lage spillet begynte jeg med å gå gjennom de allerede implementerte spillene for å se hva som skilte dem fra hverandre. Jeg la tidlig merke til at både Othello og TicTacToe holdt på en Location, mens ConnectFour holdt på en Integer. Vi fikk derimot oppgitt at den største forskjellen mellom BlobWars og da spesielt Othello (siden det likner mest) var at BlobWars holdt på to Locations. Dette ble også klart i det jeg begynte å spille spillet på nett og oppdaget at man kun flyttet brikken dersom man beveget seg to steg. Hvis man derimot kun beveget seg ett steg beholdt man den opprinnelige plassen, og laget en kopi på plassen ved siden av.
+
+Så da begynte jeg arbeidet med å lage en klasse som holdt på to locations, og ikke én. Dette resulterte i klassen "BlobWarsLocations". Denne klassen likner en del på Location, men hjelper meg å flytte brikkene på den måten jeg vil. Jeg innså også (ganske åpenbart) at jeg måtte lage en klasse for spillet Blob Wars i games-pakken sammen med de andre spillene. Deretter brukte jeg en del tid på å finne ut hvilke metoder jeg kunne gjenbruke fra de andre klassene, og hvilke jeg måtte endre/spesifisere. Noen kunne gjenbrukes fra Game-klassen, noen kunne kopieres fra Othello, og noen fant jeg ut var best å flytte fra Othello inn i Game ettersom jeg prøve å ha god kodestil.
+
+En annen endring jeg gjorde i Blob Wars var at jeg lagde tester tidligere enn jeg gjorde i semesteroppgave 1. Det føltes mer naturlig å lage tester selv tidligere nå som jeg ikke hadde en steg-for-steg guide. Jeg hadde blant annet en bug i getPossibleMoves() metoden min i BlobWars som tok ganske lang tid å debugge. Men da jeg laget testen var det lettere å se hva feilen var, og når buggen ble fikset. Så det fungerete bedre.
 
 - Tegn klassediagram --- gjøres i det allerede eksisterende klassediagrammet
 
-- 
+- -------
 
 ## Oppgave 3
-(skriv svar her)
+
+Jeg har ikke brukt særlig mye visuell testing ettersom jeg følte at jeg fikk dekket det viktigste i JUnit-testene jeg har skrevet. Men likevel var det noen få ting jeg sjekket ved å kjøre spillet. Blant annet var det vanskelig for meg på slutten å få AI'en til å fungere med riktig score-metode. Så da jeg fikk fikset den buggen jeg hadde i getPossibleMoves() kjørte jeg spillet i MainGUI og sjekket at AlphaBetaPlayer ikke bare gjorde samme moves som DumbPlayer eller RandomPlayer. Jeg sjekket også at for hvert forskjellig level i AlphaBetaPlayer at AI'en brukte lenger tid jo høyere jeg justerte level-variabelen.
 
 
 

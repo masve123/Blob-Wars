@@ -39,6 +39,21 @@ public class BlobWars extends Game<BlobWarsLocations> {
     }
 
     /**
+     * This constructor is used for testing purposes.
+     * 
+     * @param board
+     * @param graphics
+     * @param player1
+     * @param player2
+     */
+    public BlobWars(GameBoard board, Graphics graphics, Player player1, Player player2) {
+        super(board, graphics);
+        addPlayer(player1);
+        addPlayer(player2);
+        
+    }
+
+    /**
      * Has to be implemented because we need pieces on the board
      * to start the game according to the rules in Blob Wars.
      */
@@ -145,12 +160,14 @@ public class BlobWars extends Game<BlobWarsLocations> {
         for (Location from : fromLoc) {
             for (GridDirection direction : GridDirection.EIGHT_DIRECTIONS) {
                 Location neighbour = from.getNeighbor(direction);
+                BlobWarsLocations oneJump = new BlobWarsLocations(from, neighbour);
                 if (board.canPlace(neighbour)) {
-                    possiblemoves.add(new BlobWarsLocations(from, neighbour));
-
+                    if(!possiblemoves.contains(oneJump)) {
+                        possiblemoves.add(oneJump);
+                    }
                     for (GridDirection nextdirection : GridDirection.EIGHT_DIRECTIONS) {
                         Location nextNeighbour = neighbour.getNeighbor(nextdirection);
-                        BlobWarsLocations nextLoc = new BlobWarsLocations(neighbour, nextNeighbour);
+                        BlobWarsLocations nextLoc = new BlobWarsLocations(from, nextNeighbour);
                         if (nextNeighbour.equals(from)) {
                             continue;
                         }

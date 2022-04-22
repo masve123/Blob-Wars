@@ -1,15 +1,21 @@
 package inf101.sem2.game.games;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.Arrays;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import inf101.grid.BlobWarsLocations;
 import inf101.grid.Location;
 import inf101.sem2.GUI.DummyGraphics;
 import inf101.sem2.game.Game;
+import inf101.sem2.game.GameBoard;
 import inf101.sem2.game.TestGame;
+import inf101.sem2.player.Player;
 
 public class BlobWarsTest extends TestGame {
 
@@ -44,10 +50,36 @@ public class BlobWarsTest extends TestGame {
     }
     
     @Test 
-    void validMoveTest() {} // TODO: test for valid moves}
+    void validMoveTest() {
+        assertFalse(game.validMove(new BlobWarsLocations(new Location(3, 5), new Location(0, 0))));
+        assertTrue(game.validMove(new BlobWarsLocations(new Location(0, 0), new Location(1, 1))));
+        assertTrue(game.validMove(new BlobWarsLocations(new Location(0, 0), new Location(0, 2))));
+        assertFalse(game.validMove(new BlobWarsLocations(new Location(0, 0), new Location(0, 3))));
+        assertFalse(game.validMove(new BlobWarsLocations(new Location(0, 0), new Location(0, -2)))); 
+    }  
 
     @Test
-    void testMakeMove() {} // TODO
+    void testMakeMove() {
+        BlobWarsLocations move = new BlobWarsLocations(new Location(0, 0), new Location(1, 1));
+        game.makeMove(move);
+        game.nextPlayer();
+        assertEquals(player1, game.getGameBoard().get(move.getToLocation()));
+        assertEquals(player2, game.getCurrentPlayer());
+
+
+    } 
+
+    @Test
+    void testFlipPiece() {
+        GameBoard Board = new GameBoard(8, 8);
+        Board.set(new Location(0, 0), player1);
+        Board.set(new Location(0, 2), player2);
+        game = new BlobWars(Board, game.getGraphics(), player1, player2);
+        game.makeMove(new BlobWarsLocations(new Location(0, 0), new Location(0, 1)));
+        assertEquals(player1, game.getGameBoard().get(new Location(0, 1)));
+        assertEquals(player1, game.getGameBoard().get(new Location(0, 0)));
+        assertEquals(player1, game.getGameBoard().get(new Location(0, 2)));
+    }
 
     @Test
     void testNextPlayer() {
@@ -58,16 +90,29 @@ public class BlobWarsTest extends TestGame {
     }
 
     @Test
-    void testGetPossibleMoves() {} // TODO
-
+    void testGetPossibleMoves() {
+        GameBoard Board = new GameBoard(7, 7);
+        Board.set(new Location(0, 0), player1);
+        game = new BlobWars(Board, game.getGraphics(), player1, player2);
+        System.out.println(game.getPossibleMoves());
+        assertEquals(8, game.getPossibleMoves().size());
+    } 
 
     @Test
-    void testGetWinner() {} // TODO
+	void testCopy() {
+		TestGame.testCopy(game);
+		assertTrue(Arrays.equals("test".getBytes(),"test".getBytes()));
+	}
+	
 
     @Test
-    void testGetGameBoard() {} // TODO
+    void testRestart() {
+        game.makeMove(new BlobWarsLocations(new Location(0, 0), new Location(0,1)));
+        assertEquals(player1,getPlayer(0,1));
+    } 
 
-    @Test
-    void testRestart() {} // TODO See othellotest
+    Player getPlayer(int row, int col) {
+		return game.getGameBoard().get(new Location(0,1));
+	}
     
 }
