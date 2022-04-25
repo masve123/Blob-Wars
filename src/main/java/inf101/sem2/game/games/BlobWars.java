@@ -50,7 +50,7 @@ public class BlobWars extends Game<BlobWarsLocations> {
         super(board, graphics);
         addPlayer(player1);
         addPlayer(player2);
-        
+
     }
 
     /**
@@ -79,13 +79,12 @@ public class BlobWars extends Game<BlobWarsLocations> {
         if (!getPossibleLocations(from).contains(to)) {
             throw new IllegalArgumentException("Illegal move");
         }
-        
+
         if (board.getNeighbourHood(from).contains(to)) {
             board.set(to, getCurrentPlayer());
             displayBoard();
-            
-        }
-        else {
+
+        } else {
             board.movePiece(from, to);
             displayBoard();
         }
@@ -102,6 +101,7 @@ public class BlobWars extends Game<BlobWarsLocations> {
      * <p>
      * It is similar, but not equal to the getFlipped() method
      * in the Othello class.
+     * 
      * @param loc
      */
 
@@ -118,7 +118,8 @@ public class BlobWars extends Game<BlobWarsLocations> {
 
     @Override
     public boolean validMove(BlobWarsLocations move) {
-        if (Math.max(Math.abs(move.getFromLocation().row - move.getToLocation().row),Math.abs(move.getFromLocation().col - move.getToLocation().col)) > 2) {
+        if (Math.max(Math.abs(move.getFromLocation().row - move.getToLocation().row),
+                Math.abs(move.getFromLocation().col - move.getToLocation().col)) > 2) {
             return false;
         }
         if (!board.isOnBoard(move.getToLocation()))
@@ -145,6 +146,7 @@ public class BlobWars extends Game<BlobWarsLocations> {
         return true;
     }
 
+    // fix bug here, for-loop needs to be outside if-condition
     @Override
     public List<BlobWarsLocations> getPossibleMoves() {
         ArrayList<Location> fromLoc = new ArrayList<>();
@@ -162,21 +164,22 @@ public class BlobWars extends Game<BlobWarsLocations> {
                 Location neighbour = from.getNeighbor(direction);
                 BlobWarsLocations oneJump = new BlobWarsLocations(from, neighbour);
                 if (board.canPlace(neighbour)) {
-                    if(!possiblemoves.contains(oneJump)) {
+                    if (!possiblemoves.contains(oneJump)) {
                         possiblemoves.add(oneJump);
                     }
-                    for (GridDirection nextdirection : GridDirection.EIGHT_DIRECTIONS) {
-                        Location nextNeighbour = neighbour.getNeighbor(nextdirection);
-                        BlobWarsLocations nextLoc = new BlobWarsLocations(from, nextNeighbour);
-                        if (nextNeighbour.equals(from)) {
-                            continue;
-                        }
-                        if (board.canPlace(nextNeighbour) && !possiblemoves.contains(nextLoc)) {
-                            possiblemoves.add(nextLoc);
-                        }
-                    }
-
                 }
+
+                for (GridDirection nextdirection : GridDirection.EIGHT_DIRECTIONS) {
+                    Location nextNeighbour = neighbour.getNeighbor(nextdirection);
+                    BlobWarsLocations nextLoc = new BlobWarsLocations(from, nextNeighbour);
+                    if (nextNeighbour.equals(from)) {
+                        continue;
+                    }
+                    if (board.canPlace(nextNeighbour) && !possiblemoves.contains(nextLoc)) {
+                        possiblemoves.add(nextLoc);
+                    }
+                }
+
             }
 
         }
@@ -211,17 +214,15 @@ public class BlobWars extends Game<BlobWarsLocations> {
     }
 
     @Override
-	public int score(Player player) {
-		int otherPiecesSum = 0;
-		for (Player p : players) {
-			if (player.equals(p))
-				continue;
-			otherPiecesSum += board.countPieces(p);
-		}
-		int nPlayerPieces = board.countPieces(player);
-		return nPlayerPieces - otherPiecesSum;
-	}
+    public int score(Player player) {
+        int otherPiecesSum = 0;
+        for (Player p : players) {
+            if (player.equals(p))
+                continue;
+            otherPiecesSum += board.countPieces(p);
+        }
+        int nPlayerPieces = board.countPieces(player);
+        return nPlayerPieces - otherPiecesSum;
+    }
 
-    
-    
 }

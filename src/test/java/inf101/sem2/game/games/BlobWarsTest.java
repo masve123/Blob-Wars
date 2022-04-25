@@ -99,6 +99,19 @@ public class BlobWarsTest extends TestGame {
     } 
 
     @Test
+    void testGetPossibleMovesWhenBlocked() {
+        GameBoard Board = new GameBoard(7, 7);
+        Board.set(new Location(0, 0), player1);
+        Board.set(new Location(0, 1), player2);
+        Board.set(new Location(1, 0), player2);
+        Board.set(new Location(1, 1), player2);
+        game = new BlobWars(Board, game.getGraphics(), player1, player2);
+        System.out.println(game.getPossibleMoves());
+        assertEquals(5, game.getPossibleMoves().size());
+
+    }
+
+    @Test
 	void testCopy() {
 		TestGame.testCopy(game);
 		assertTrue(Arrays.equals("test".getBytes(),"test".getBytes()));
