@@ -146,7 +146,6 @@ public class BlobWars extends Game<BlobWarsLocations> {
         return true;
     }
 
-    // fix bug here, for-loop needs to be outside if-condition
     @Override
     public List<BlobWarsLocations> getPossibleMoves() {
         ArrayList<Location> fromLoc = new ArrayList<>();

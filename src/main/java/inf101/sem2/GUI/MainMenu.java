@@ -141,7 +141,7 @@ public class MainMenu implements ActionListener {
 			String choiceAI = promptAI();
 
 			if (choiceAI.equals("AlphaBetaPlayer")) {
-				players.add(new AlphaBetaPlayer('O', 2));
+				players.add(new AlphaBetaPlayer('O', levelAI()));
 			} else if (choiceAI.equals("DumbPlayer")) {
 				players.add(new DumbPlayer('0'));
 
@@ -166,6 +166,24 @@ public class MainMenu implements ActionListener {
 				null,
 				"Choose level of AI:",
 				"AI",
+				JOptionPane.PLAIN_MESSAGE,
+				null,
+				levelsAI,
+				null);
+
+		return s;
+
+	}
+	/**
+	 * Helper method for choosing level of AI.
+	 * @return An Integer representing the level of the AI.
+	 */
+	private static int levelAI() {
+		Integer[] levelsAI = {1, 2, 3, 4, 5, 6, 7, 8, 9};
+		Integer s = (Integer) JOptionPane.showInputDialog(
+				null,
+				"Choose level of AI:",
+				"AI-level",
 				JOptionPane.PLAIN_MESSAGE,
 				null,
 				levelsAI,

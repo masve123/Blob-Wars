@@ -83,10 +83,25 @@ public class TerminalMenu {
 			case 2:
 				return new RandomPlayer('O', "RandomPlayer");
 			case 3:
-				return new AlphaBetaPlayer('O', 2);
+				return new AlphaBetaPlayer('O', terminalLevelAI());
 			default:
 				throw new IllegalArgumentException("Unexpected value: " + choiceAI);
 
 		}
+	}
+	/**
+	 * Prompts the user for the level of the AI
+	 * @return the level of the AI
+	 */
+	private static int terminalLevelAI() {
+		System.out.println("Press any number between 1 and 9 to set the level of the AI");
+		int[] levels = { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+		int choice = TerminalInput.readInt(new Scanner(System.in));
+		for (int i = 0; i < levels.length; i++) {
+			if (choice == levels[i]) {
+				return choice;
+			}
+		}
+		throw new IllegalArgumentException("Unexpected value: " + choice);
 	}
 }
