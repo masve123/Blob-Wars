@@ -9,12 +9,6 @@ import java.util.Collection;
  *
  * @author Martin Vatshelle - martin.vatshelle@uib.no
  */
-
- // Ide: gjøre denne klassen abstrakt, altså kalle den for AbstractLocation.
- // Deretter lager jeg en klasse BlobWarsLocation som arver fra AbstractLocation.
- // Denne klassen tar inn to Locations i konstruktøren, Location1 og Location2
- // Deretter lage en ny klasse Location som holder på de metodene som jeg ikke trenger
- // Som brukes her.
  
 public class Location {
 

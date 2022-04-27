@@ -82,14 +82,26 @@ Blob Wars likner en del på Othello, både når det gjelder regler men også UI.
 Så da begynte jeg arbeidet med å lage en klasse som holdt på to locations, og ikke én. Dette resulterte i klassen "BlobWarsLocations". Denne klassen likner en del på Location, men hjelper meg å flytte brikkene på den måten jeg vil. Jeg innså også (ganske åpenbart) at jeg måtte lage en klasse for spillet Blob Wars i games-pakken sammen med de andre spillene. Deretter brukte jeg en del tid på å finne ut hvilke metoder jeg kunne gjenbruke fra de andre klassene, og hvilke jeg måtte endre/spesifisere. Noen kunne gjenbrukes fra Game-klassen, noen kunne kopieres fra Othello, og noen fant jeg ut var best å flytte fra Othello inn i Game ettersom jeg prøve å ha god kodestil.
 
 En annen endring jeg gjorde i Blob Wars var at jeg lagde tester tidligere enn jeg gjorde i semesteroppgave 1. Det føltes mer naturlig å lage tester selv tidligere nå som jeg ikke hadde en steg-for-steg guide. Jeg hadde blant annet en bug i getPossibleMoves() metoden min i BlobWars som tok ganske lang tid å debugge. Men da jeg laget testen var det lettere å se hva feilen var, og når buggen ble fikset. Så det fungerete bedre.
+ 
+- PDF av klassediagram ligger under .gitgnore (jeg måtte laste ned pdf-extension i VScode for at den skulle vises).
 
-- Tegn klassediagram --- gjøres i det allerede eksisterende klassediagrammet
-
-- -------
 
 ## Oppgave 3
 
 Jeg har ikke brukt særlig mye visuell testing ettersom jeg følte at jeg fikk dekket det viktigste i JUnit-testene jeg har skrevet. Men likevel var det noen få ting jeg sjekket ved å kjøre spillet. Blant annet var det vanskelig for meg på slutten å få AI'en til å fungere med riktig score-metode. Så da jeg fikk fikset den buggen jeg hadde i getPossibleMoves() kjørte jeg spillet i MainGUI og sjekket at AlphaBetaPlayer ikke bare gjorde samme moves som DumbPlayer eller RandomPlayer. Jeg sjekket også at for hvert forskjellig level i AlphaBetaPlayer at AI'en brukte lenger tid jo høyere jeg justerte level-variabelen.
+
+
+- Manuell test for AI:
+1. Kjør MainGUI.java
+2. Velg AlphaBetaPlayer
+3. Velg level 3
+4. Flytt dine brikker nedover til en av dem ligger i AI sine possiblemoves.
+5. Sjekk om den bruker tid på å tenke.
+6. Sjekk at den ikke flytter brikken vertikalt oppover slik som foregående trekk.
+
+
+
+
 
 
 

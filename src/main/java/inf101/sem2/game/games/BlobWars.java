@@ -11,6 +11,17 @@ import inf101.sem2.game.Game;
 import inf101.sem2.game.GameBoard;
 import inf101.sem2.player.Player;
 
+
+/**
+ * This class implements the game Blob Wars.
+ * Similarly to Othello, this is a two player game where you start with
+ * some selected pieces on a given board.
+ * <p>
+ * <ul> <li> The goal is to remove all of the opponents pieces, or 
+ * if none of the players have possible moves left be the one with the most pieces.
+ * <p>
+ * @author Mathias Svendsen - Svendsenorway@hotmail.com
+ */
 public class BlobWars extends Game<BlobWarsLocations> {
 
     /**

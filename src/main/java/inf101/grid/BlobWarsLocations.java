@@ -6,11 +6,12 @@ import java.util.Objects;
  * This class represents locations on a grid.
  * That means indices for row and column.
  * <p>
- * The difference between this class and "Location" is that this class
+ * The difference between this class and the Location class is that this class
  * holds two different locations, in comparison to a single one.
+ * 
+ * @author Mathias Svendsen - Svendsenorway@hotmail.com
  */
 public class BlobWarsLocations {
-
 
     private Location fromLocation;
     private Location toLocation;
@@ -20,11 +21,16 @@ public class BlobWarsLocations {
         this.toLocation = toLocation;
     }
 
-
+    /**
+     * @return The location in which a player is moving to.
+     */
     public Location getToLocation() {
         return this.toLocation;
     }
 
+    /** 
+     * @return The location in which a player is moving from.
+     */
     public Location getFromLocation() {
         return this.fromLocation;
     }
